@@ -11,16 +11,25 @@ include_once '../vendor/autoload.php';
 use sjdskl\WebSpider;
 
 $webSpider = WebSpider::getInstance();
-//$url = 'https://blog.skl9.com';
 $url = 'http://b.skl9.com';
 $html = $webSpider->createWebInstance($url);
-//echo $html->html();
+//获取html内容
+//echo $html . "\n";
+//或者
+//echo $html->html() . "\n";
+
 $a = $html->filterXPath('//*[@id="newList"]/li');
-echo $a->count() . "\n";
-foreach ($a as $v) {
-    echo $v->textContent . "\n";
+//echo $a->count() . "\n";
+//echo ($a->html()) . "\n";
+
+//$b = $html->filterXPath('//*[@id="newList"]/li[1]/a/@href');
+//echo ($b->text()) . "\n";
+//echo "\n";
+/** @var \sjdskl\Libraries\Html $b */
+$b = $a->filterXPath("//a");
+//as string
+echo $b->html() . "\n";
+//as array
+foreach ($b->html() as $v) {
+    echo $v . "\n";
 }
-
-$a = $html->filterXPath('//*[@id="newList"]/li[1]/a/@href');
-
-echo $a->text() . "\n";

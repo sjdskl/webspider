@@ -11,19 +11,18 @@ namespace sjdskl\Libraries;
 
 use Symfony\Component\DomCrawler\Crawler;
 
-class Html implements \Countable, \IteratorAggregate
+class Html
 {
     /**
      * @var Crawler
      */
     protected $_crawlerInstance;
 
-    public function __construct($contents)
+    public function __construct($contents = '')
     {
-        if(!$contents) {
-            return false;
+        if($contents) {
+            $this->_crawlerInstance = new Crawler($contents);
         }
-        $this->_crawlerInstance = new Crawler($contents);
     }
 
     /**
@@ -35,22 +34,37 @@ class Html implements \Countable, \IteratorAggregate
         return $this->_crawlerInstance;
     }
 
+    public function setCrawlerInstance($crawler)
+    {
+        $this->_crawlerInstance = $crawler;
+        return $this;
+    }
+
     public function html()
     {
+        $html = [];
         if($this->_crawlerInstance->count()) {
-            return $this->_crawlerInstance->html();
+            foreach ($this->_crawlerInstance as $node) {
+                $html[] = trim(Utils::getDomDocumentHtml($node));
+            }
         }
-
-        return false;
+        return new ReturnObject($html);
     }
 
     public function text()
     {
+        $text = [];
         if($this->_crawlerInstance->count()) {
-            return $this->_crawlerInstance->text();
+            foreach ($this->_crawlerInstance as $node) {
+                $text[] = trim($node->textContent);
+            }
         }
+        return new ReturnObject($text);
+    }
 
-        return false;
+    public function __toString()
+    {
+        return (string)$this->html();
     }
 
     /**
@@ -61,7 +75,7 @@ class Html implements \Countable, \IteratorAggregate
     {
         $crawler = $this->_crawlerInstance->filterXPath($rule);
         if($crawler->count()) {
-            return $crawler;
+            return (new Html())->setCrawlerInstance($crawler);
         }
         return false;
     }
@@ -69,11 +83,6 @@ class Html implements \Countable, \IteratorAggregate
     public function count()
     {
         return $this->_crawlerInstance->count();
-    }
-
-    public function getIterator()
-    {
-        return $this->_crawlerInstance->getIterator();
     }
 
 
