@@ -1,0 +1,27 @@
+{
+    "name": "sjdskl/webspider",
+    "type": "library",
+    "description": "web spider",
+    "keywords": ["web", "spider", "progress"],
+    "authors": [
+        {
+            "name": "skl",
+            "email": "sjdskl.skl@163.com",
+            "homepage": "https://blog.skl9.com/"
+        }
+    ],
+    "require": {
+        "symfony/dom-crawler": "^3.4",
+        "symfony/css-selector": "^3.4",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "sjdskl\\": "./src",
+            "sjdskl\\Libraries\\": "./src/Libraries",
+            "sjdskl\\Exception\\": "./src/Exception"
+        }
+    },
+    "require-dev": {
+    }
+}
