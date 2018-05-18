@@ -11,7 +11,7 @@ namespace sjdskl\Libraries;
 
 use Symfony\Component\DomCrawler\Crawler;
 
-class Html
+class Html implements \Countable, \IteratorAggregate
 {
     /**
      * @var Crawler
@@ -61,9 +61,20 @@ class Html
     {
         $crawler = $this->_crawlerInstance->filterXPath($rule);
         if($crawler->count()) {
-            return new Html($crawler->html());
+            return $crawler;
         }
         return false;
     }
+
+    public function count()
+    {
+        return $this->_crawlerInstance->count();
+    }
+
+    public function getIterator()
+    {
+        return $this->_crawlerInstance->getIterator();
+    }
+
 
 }

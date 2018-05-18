@@ -15,4 +15,12 @@ $webSpider = WebSpider::getInstance();
 $url = 'http://b.skl9.com';
 $html = $webSpider->createWebInstance($url);
 //echo $html->html();
-echo $html->filterXPath('//*[@id="newList"]/li[1]/a/@href')->text();
+$a = $html->filterXPath('//*[@id="newList"]/li');
+echo $a->count() . "\n";
+foreach ($a as $v) {
+    echo $v->textContent . "\n";
+}
+
+$a = $html->filterXPath('//*[@id="newList"]/li[1]/a/@href');
+
+echo $a->text() . "\n";
