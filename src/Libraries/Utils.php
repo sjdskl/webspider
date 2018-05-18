@@ -31,7 +31,7 @@ class Utils
             $reqeustParams['body'] = http_build_query($params);
         }
         if(self::checkHttps($url)) {
-            $reqeustParams['verify'] = false;
+            $reqeustParams['verify'] = APP_PATH . "/cacert.pem";
         }
         try {
             $response = $client->request($method, $url, $reqeustParams);

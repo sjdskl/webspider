@@ -11,6 +11,7 @@ include_once '../vendor/autoload.php';
 use sjdskl\WebSpider;
 
 $webSpider = WebSpider::getInstance();
+//$url = 'https://blog.skl9.com';
 $url = 'http://b.skl9.com';
 $html = $webSpider->createWebInstance($url);
 //echo $html->html();
