@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kailishen
- * Date: 2018/5/18
- * Time: 下午8:42
+ * 获取内容
  */
 
 include_once '../vendor/autoload.php';
