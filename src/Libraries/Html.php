@@ -51,6 +51,21 @@ class Html
         return new ReturnObject($html);
     }
 
+    public function attrs($name, $value = null)
+    {
+        $attrs = [];
+        if($this->_crawlerInstance->count()) {
+            foreach($this->_crawlerInstance as $node) {
+                if($value !== null) {
+                    $attrs[] = $node->getAttribute($name);
+                } else {
+                    $node->setAttribute($node, $value);
+                }
+            }
+        }
+        return new ReturnObject($attrs);
+    }
+
     public function text()
     {
         $text = [];
@@ -67,9 +82,14 @@ class Html
         return (string)$this->html();
     }
 
+    public function images()
+    {
+        return $this->filterXPath('//img');
+    }
+
     /**
      * @param $rule
-     * @return bool|Crawler
+     * @return bool|Html
      */
     public function filterXPath($rule)
     {

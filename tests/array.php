@@ -25,3 +25,12 @@ echo $rows . "\n";
 foreach($rows as $row) {
     echo $row . "\n";
 }
+
+//替换图片网址，然后生成html
+foreach($html->filterXPath("//img")->getCrawlerInstance() as $node) {
+    echo $node->getAttribute('src') . "\n";
+    //可以做上传七牛后生成地址啥的
+    $node->setAttribute('src', 'https://baidu.com');
+}
+//修改后的内容会体现在原有内容里，可以方便提花内容
+echo $html->html();

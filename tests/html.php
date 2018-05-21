@@ -11,6 +11,9 @@ $webSpider = WebSpider::getInstance();
 $url = 'http://b.skl9.com';
 $html = $webSpider->createWebInstance($url);
 //实现了tostring
-echo $html . "\n";
-echo $html->html() . "\n";
-echo $html->text() . "\n";
+//echo $html . "\n";
+//echo $html->html() . "\n";
+//echo $html->text() . "\n";
+foreach( $html->filterXPath('//img')->attrs('src') as $src ) {
+    echo $src . "\n";
+}
